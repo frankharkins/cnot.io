@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- /Bootstrap CSS -->
+    <link rel="stylesheet" href="/Bootstrap/css/bootstrap.css" media="screen">
+
+    <title>Grover's Algorithm Index | CNOT</title>
+	<link rel="icon" type="image/x-icon" href="/favicons/favicon.ico">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">CNOT</a>
+        <a href="/navigation/">
+        <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button></a>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/get_started/">Get Started</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about/">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contents/">Contents</a>
+      </li>
+    </ul>
+    </div>
+    </nav>
+    <div class='container'>
+    <h1>Grover's Algorithm</h1>
+    <p><br></p>
+    <br>
+    <h3>Summary</h3>
+    <p>
+        Grover’s algorithm, also known as 'quantum search' and 'amplitude amplification',  is a search algorithm for unstructured databases. It is provably optimal for quantum computers, and quadratically faster than the best classical algorithm. Lov Grover published his algorithm in <a href="https://arxiv.org/abs/quant-ph/9605043">“A fast quantum mechanical algorithm for database search” (1996)</a>
+    </p>
+    <p>This website tries to take a different approach to teaching quantum search, giving more specific contexts and problems that can then be generalised in later sections. We use lots of circuit diagrams and give a working example of quantum search as early as possible, hopefully this will help the student understand the potential uses of quantum search faster and understand how the reflections in the algorithm correspond to useful computations.
+    </p>
+    <p><br></p>
+    <h3>Contents</h3>
+        <ol id="list">
+            <li><a href="preamble.html">Preamble</a>
+                <ul>
+                    <li><a href="preamble.html#unstructured_search">Unstructured Search</a></li>
+                    <li><a href="preamble.html#thinking_like_a_computer">Thinking like a Computer</a></li>
+                </ul>
+            </li>
+            <li><a href="grovers_algorithm.html">Grover's Algorithm</a>
+                <ul>
+                    <li><a href="grovers_algorithm.html#outline">Outline</a></li>
+                    <li><a href="grovers_algorithm.html#implementing_as_a_quantum_circuit">Implementing as a Quantum Circuit</a></li>
+                    <ul>
+                    <li><a href="grovers_algorithm.html#the_oracle">The Oracle</a></li>
+                    <li><a href="grovers_algorithm.html#the_diffusion_operator">The Diffusion Operator</a></li>
+                    <li><a href="grovers_algorithm.html#full_quantum_circuit">Full Quantum Circuit</a></li>
+                    <li><a href="grovers_algorithm.html#quirk_example_circuit">Example Circuit in Quirk</a></li>
+                    </ul>
+                </ul>
+            </li>
+            <li><a href="using_grovers_algorithm.html">Using Grover's Algorithm (Example)</a>
+                <ul>
+                    <li><a href="using_grovers_algorithm.html#computational_search">Computational Search</a></li>
+                    <ul><li><a href="using_grovers_algorithm.html#np-complete_problems">NP-Complete Problems</a></li></ul>
+                    <li><a href="using_grovers_algorithm.html#sat_problems">SAT Problems</a></li>
+                    <ul>
+                        <li><a href="using_grovers_algorithm.html#background">Background</a></li>
+                        <li><a href="using_grovers_algorithm.html#what_is_a_sat_problem">What is a SAT Problem?</a></li>
+                    </ul>
+                    <li><a href="using_grovers_algorithm.html#building_a_sat_oracle">Building a SAT Oracle</a></li>
+                    <li><a href="using_grovers_algorithm.html#full_sat_solving_circuit">A Full SAT Solving Circuit</a></li>
+                </ul>
+        </li>
+        <li class="text-muted">More about Quantum Search
+            <ul class="text-muted">
+                <li>Search for Unknown Number of Solutions</li>
+            </ul>
+        </li>
+        <li class="text-muted">Exploiting Structure
+            <ul class="text-muted">
+                <li>Combining with Classical Algorithms</li>
+                <li>Nested Quantum Search</li>
+            </ul>
+        </li>
+        </ol>
+    </div>
+  </body>
+</html>

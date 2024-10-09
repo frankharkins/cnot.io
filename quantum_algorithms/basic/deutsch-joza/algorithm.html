@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- /Bootstrap CSS -->
+    <link rel="stylesheet" href="/Bootstrap/css/bootstrap.css" media="screen">
+
+    <title>The Deutsch-Joza Algorithm | CNOT</title>
+	<link rel="icon" type="image/x-icon" href="/favicons/favicon.ico">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">CNOT</a>
+        <a href="/navigation/">
+        <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button></a>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/get_started/">Get Started</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about/">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contents/">Contents</a>
+      </li>
+    </ul>
+    </div>
+    </nav>
+    <div class='container'>
+    <h1>The Deutsch-Joza Algorithm</h1>
+        <div class="btn-group btn-group" style="margin: 2em" id="list">
+            <a href="../deutsch-joza/" style="font-size: 1.2em" class="btn btn-default">Index</a>
+            <a href="explanation.html" style="font-size: 1.2em; margin-left: .2em" class="btn btn-default"> Next</a>
+        </div>
+    <p><br></p>
+    <h3>Contents</h3>
+        <ol id="list">
+            <li><a href="#theproblem">The Problem</a>
+            <ul><li><a href="#blackboxes">Black Boxes</a></li>
+                <li><a href="#deutsch-joza_black_box">The Deutsch-Joza Black Box</a></li></ul></li>
+            <li><a href="#classicalsolution">Classical Solution</a></li>
+            <li><a href="#thealgorithm">The Algorithm</a></li>
+        </ol>
+    <p><br></p>
+    <h3 id="theproblem">The Problem</h3>
+        <h4 id="blackboxes">Black Boxes</h4>
+    <p>
+    You are probably (hopefully) familiar with the style of computation in which our problem is coded into our input bits and we perform operations on these bits until our output bits contain our answer. For example, an addition circuit may take two binary numbers in two registers (we call a set of bits a register) and output their sum into one of these registers:
+    </p>
+    <br>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig1.png" style="width:75%; margin: 2em; margin-left: 0em" title="Inputs and outputs of an addition circuit. In this case the the inputs encode the specific case of our multiplication problem and the operations we perform are always the same." >
+    </div>
+    </div>
+    <br>
+    <p>
+        Here is an example of this provided by the creator of Quirk:
+    </p>
+    <ul><li style="font-family: 'Source Serif Pro', serif;"><a href="https://algassert.com/quirk#circuit={%22cols%22:[[%22Counting5%22,1,1,1,1,1,1,1,%22X%22],[%22Chance5%22,1,1,1,1,%22Chance5%22],[%22X%22,%22X%22,%22X%22,%22X%22,%22%E2%80%A2%22,%22X%22,%22X%22,%22X%22,%22X%22,%22X%22],[1,1,1,1,%22%E2%80%A2%22,%22X%22],[%22Swap%22,1,1,1,%22Swap%22,%22%E2%80%A2%22],[1,1,1,1,%22%E2%80%A2%22,1,%22X%22],[1,%22Swap%22,1,1,%22Swap%22,1,%22%E2%80%A2%22],[1,1,1,1,%22%E2%80%A2%22,1,1,%22X%22],[1,1,%22Swap%22,1,%22Swap%22,1,1,%22%E2%80%A2%22],[1,1,1,1,%22%E2%80%A2%22,1,1,1,%22X%22],[1,1,1,%22Swap%22,%22Swap%22,1,1,1,%22%E2%80%A2%22],[1,1,1,1,%22%E2%80%A2%22,1,1,1,1,%22X%22],[1,1,1,%22Swap%22,%22Swap%22,1,1,1,%22%E2%80%A2%22],[1,1,1,%22%E2%80%A2%22,1,1,1,1,%22X%22],[1,1,%22Swap%22,1,%22Swap%22,1,1,%22%E2%80%A2%22],[1,1,%22%E2%80%A2%22,1,1,1,1,%22X%22],[1,%22Swap%22,1,1,%22Swap%22,1,%22%E2%80%A2%22],[1,%22%E2%80%A2%22,1,1,1,1,%22X%22],[%22Swap%22,1,1,1,%22Swap%22,%22%E2%80%A2%22],[%22%E2%80%A2%22,1,1,1,1,%22X%22],[%22X%22,%22X%22,%22X%22,%22X%22,%22%E2%80%A2%22,%22X%22,%22X%22,%22X%22,%22X%22,%22X%22],[%22Chance5%22,1,1,1,1,%22Chance5%22]]}">Link to addition circuit in Quirk</a></li></ul>
+    <p>In quantum computing we often use a different style of computation, solving what we call a ‘black box’ problem. A black box is simply a quantum circuit that we are not allowed to look at or take apart. In this case, the instance of the problem is encoded into the operations we perform instead of the input registers:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig2.png" style="width:70%; margin: 3em; margin-left: 1em; margin-right: 1em" title="In a 'black box' problem, the specific instance of the problem is encoded into the set of operations we perform in the black box." >
+    </div>
+    </div>
+    <p>
+        It might seem difficult to understand how a black box problem can be useful, but we will address this in other articles (such as in the <a href="../../grover/using_grovers_algorithm.html#what_is_a_sat_problem">Grover's Algorithm section</a>).
+    </p>
+    <br>
+    <h4 id="deutsch-joza_black_box">The Deutsch-Joza Black Box Problem</h4>
+    <p>
+    We are given a classical black box that takes n input qubits, and outputs to one output qubit:
+    </p>
+    <br>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig3.png" style="width:65%; margin: 2em;" title="The Deutsch-Joza black box takes n input bits and outputs one output bit, f(x)" >
+    </div>
+    </div>
+    <br>
+    <p>
+    To make the circuit reversible we need to adapt our black box so it has the same number of input qubits as output qubits. In our case we give the circuit n input qubits plus one extra qubit for output, the circuit returns the original n input qubits in their initial state, plus the output qubit in its new state.
+    </p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig4.png" style="width:55%; margin: 3em;" title="To make this black box reversible we use a separate output bit, and leave the input bits in the same state they entered the circuit in" >
+    </div>
+    </div>
+    <p>We are guaranteed that the output of this black box is either constant or balanced:</p>
+        <ul style="font-family: 'Source Serif Pro', serif;">
+        <li>Constant: The state of the output bit is the same for all input states</li>
+        <li>Balanced: The output bit is ON for half of the input states and OFF for the other half</li>
+        </ul>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig5.png" style="width:27%; margin: 2em;" title="For a constant function, the output bit is always the same" >
+        <img src="img/fig6.png" style="width:27%; margin: 2em;" title="For a balanced function, the output bit is ON for exactly half the input states and OFF the other" >
+    </div>
+    </div>
+    <p>The problem is to find out whether the black box is constant or balanced.</p>
+    <br>    
+    <h3 id="classicalsolution">The Classical Solution</h3>
+    <p>
+    Classically, we can solve this problem by passing the box different input states and recording the output. If the box is balanced we will need at least two queries in the best case: one output ON and one output OFF. On average we will need more than this.</p>
+    <p>To prove the box is constant with 100% certainty requires us checking one more than half of the possible input states (2<sup>n-1</sup> + 1 queries). Though if we are willing to accept a small margin of error we need a lot less queries than this.
+    We can see that the classical solution needs between 2 queries (in the best case) to 2<sup>n-1</sup> +1 queries (in the worst case).  The Deutsch-Joza algorithm only ever needs one query.
+    </p>
+    <h3 id="thealgorithm">The Algorithm</h3>
+    <p>
+    The Deutsch-Joza algorithm is simple:</p>
+    <ol style="font-family: 'Source Serif Pro', serif;">
+        <li>Set the output qubit to |-⟩</li>
+        <li>Apply H-gates to the n input qubits</li>
+        <li>Run the black box</li>
+        <li>Apply H-gates to the n input qubits</li>
+        <li>Measure the n input qubits:</li>
+        <ul><li>If all n qubits are in the state |0⟩, the box is constant</li>
+        <li>Otherwise, the box is balanced</li></ul>
+    </ol>
+    <br>
+    <p>We can draw this as a quantum circuit:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig7.png" style="width:70%; margin: 2em; margin-bottom: 3em" title="The full Deutsch-Joza algorithm as a quantum circuit; the top three qubits are the n 'input' qubits, the bottom qubit is the 'output' qubit." >
+    </div>
+    </div>
+    <p>To keep with the labelling of the reversible classical circuit above, I will still refer to the top n qubits as the ‘input’ qubits, and the bottom qubit as the ‘output’ qubit. Bear in mind that after the black box we ignore the bottommost qubit, so the top n qubits could be considered the output of the algorithm. I have provided a link (below) to an example in Quirk. This example has six custom gates (located in the lower right corner), each takes the first qubits as input and the final qubit as output. Use the Deutsch-Joza algorithm in Quirk to find out if each black box is constant or balanced:</p>
+    <ul><li style="font-family: 'Source Serif Pro', serif;"><a href="https://algassert.com/quirk#circuit={%22cols%22:[[1,1,1,%22X%22],[%22H%22,%22H%22,%22H%22,%22H%22],[%22Bloch%22,%22Bloch%22,%22Bloch%22,%22Bloch%22],[%22~k6ac%22],[%22H%22,%22H%22,%22H%22]],%22gates%22:[{%22id%22:%22~k6ac%22,%22name%22:%22A%22,%22circuit%22:{%22cols%22:[[%22%E2%80%A2%22,1,1,%22X%22],[1,%22%E2%80%A2%22,1,%22X%22],[1,1,%22%E2%80%A2%22,%22X%22]]}},{%22id%22:%22~ut9i%22,%22name%22:%22B%22,%22circuit%22:{%22cols%22:[[%22%E2%97%A6%22,1,1,%22X%22],[1,%22%E2%80%A2%22,1,%22X%22],[1,1,%22%E2%97%A6%22,%22X%22]]}},{%22id%22:%22~9cc4%22,%22name%22:%22C%22,%22circuit%22:{%22cols%22:[[%22%E2%80%A2%22,1,1,1,%22X%22],[1,1,%22%E2%97%A6%22,%22%E2%80%A2%22,%22X%22],[1,1,%22%E2%80%A2%22,%22%E2%97%A6%22,%22X%22],[%22X%22,%22%E2%80%A2%22],[%22%E2%80%A2%22,%22X%22],[%22X%22,%22%E2%80%A2%22],[%22%E2%80%A2%22,1,1,1,%22X%22]]}},{%22id%22:%22~9lvu%22,%22name%22:%22D%22,%22circuit%22:{%22cols%22:[[1,%22%E2%80%A2%22,%22X%22],[1,1,%22%E2%80%A2%22,%22X%22],[1,1,1,%22%E2%80%A2%22,%22X%22],[%22%E2%97%A6%22,1,%22X%22],[1,1,%22%E2%97%A6%22,1,%22X%22],[%22%E2%97%A6%22,%22%E2%80%A2%22,1,1,%22X%22],[1,1,%22%E2%80%A2%22,1,%22X%22],[%22%E2%80%A2%22,%22%E2%97%A6%22,1,1,%22X%22],[1,1,%22X%22,%22%E2%80%A2%22],[1,1,1,%22%E2%97%A6%22,%22X%22],[%22%E2%97%A6%22,%22X%22],[1,%22%E2%80%A2%22,1,1,%22X%22]]}},{%22id%22:%22~fi4s%22,%22name%22:%22E%22,%22circuit%22:{%22cols%22:[[%22%E2%80%A2%22,%22X%22,1,1,%22%E2%97%A6%22],[1,1,%22X%22,1,%22%E2%80%A2%22],[%22%E2%97%A6%22,1,1,1,%22X%22],[1,1,1,%22%E2%80%A2%22,%22X%22],[1,1,%22X%22,%22%E2%80%A2%22],[1,1,%22%E2%80%A2%22,%22X%22],[1,1,%22X%22,%22%E2%80%A2%22],[1,1,%22%E2%97%A6%22,1,%22X%22],[%22%E2%97%A6%22,1,1,1,%22X%22],[%22%E2%80%A2%22,%22X%22,1,1,%22%E2%97%A6%22]]}},{%22id%22:%22~u72%22,%22name%22:%22F%22,%22circuit%22:{%22cols%22:[[%22%E2%97%A6%22,%22%E2%80%A2%22,%22%E2%97%A6%22,%22X%22],[%22%E2%97%A6%22,%22%E2%97%A6%22,%22%E2%97%A6%22,%22X%22],[%22%E2%80%A2%22,%22%E2%80%A2%22,%22%E2%80%A2%22,%22X%22],[%22%E2%80%A2%22,%22%E2%80%A2%22,%22%E2%97%A6%22,%22X%22]]}}]}">Link to Deutsch-Joza example in Quirk</a></li></ul>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig8.png" style="width:70%; margin: 2em;" title="Trying out the Deutsch-Joza algorithm in Quirk. In this example we can see that the probability of measuring the first 3 qubits all as OFF is 0. This means A must be balanced." >
+    </div>
+    </div>
+    <p>You should also try creating your own black box circuits and see how the algorithm behaves when given neither a balanced nor constant circuit.</p>
+    
+    <p><br></p>
+    <h3 style="text-align: center"><a href="explanation.html">Next Section</a></h3>
+    <p><br></p>
+    </div>
+  </body>
+</html>

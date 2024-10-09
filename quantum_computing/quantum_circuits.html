@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- /Bootstrap CSS -->
+    <link rel="stylesheet" href="/Bootstrap/css/bootstrap.css" media="screen">
+
+    <title>Quantum Circuits | CNOT</title>
+	<link rel="icon" type="image/x-icon" href="/favicons/favicon.ico">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">CNOT</a>
+        <a href="/navigation/">
+        <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button></a>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/get_started/">Get Started</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about/">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contents/">Contents</a>
+      </li>
+    </ul>
+    </div>
+    </nav>
+    <div class='container'>
+    <h1>Quantum Computing</h1>
+        <div class="btn-group btn-group" style="margin: 2em" id="list">
+            <a href="single_qubit_operations.html" style="font-size: 1.2em" class="btn btn-default">Previous</a>
+            <a href="../quantum_computing/" style="font-size: 1.2em" class="btn btn-default">Index</a>
+            <a href="two_qubit_operations.html" style="font-size: 1.2em; margin-left: .2em" class="btn btn-default"> Next</a>
+        </div>
+    <h2>Quantum Circuits</h2>
+    <p>In this section we introduce quantum circuits, a common notation used for communicating quantum algorithms.
+</p>
+    <p><br></p>
+    <h3>Contents</h3>
+        <ol id="list">
+                    <li><a href="#quantum_circuits">Quantum Circuits</a></li>
+                    <li><a href="#random_number_generator">A Simple Quantum Algorithm (Random Number Generator)</a></li>
+        </ol>
+    <p><br></p>
+    <h2 id="quantum_circuits">Quantum Circuits</h2>
+    <p>We normally start with our qubits in the state |0⟩, and perform a sequence of operations on them. We use quantum circuits to show this: each line represents a qubit, each box represents an operation and the operations are carried out in chronological order from left to right.</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig17.png" style="width:60%; margin: 2em" title="Example of a quantum circuit" >
+    </div>
+    </div>
+    <p><br></p>
+    <h2 id="random_number_generator">Example Algorithm: Random Number Generator</h2>
+    <p>We now know enough to create our first quantum algorithm! We start with possibly the most simple algorithm we can think of on a quantum computer- a true random number generator.</p>
+    <h4>Algorithm:</h4>
+        <ol style="font-family: 'Source Serif Pro', serif;">
+            <li>Start with each qubit in the state |0⟩</li>
+            <li>Apply an H-gate to each qubit</li>
+            <li>Output measurement of the register</li>
+        </ol>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig18.png" style="width:65%; margin: 2em" title="The Hadamard transform and its matrix in the computational basis" >
+    </div>
+    </div>
+    <br>
+    <p>After the H-gate, the state of each qubit is |+⟩ which gives equal probability of measuring |0⟩ and |1⟩. This is a truly quantum algorithm (cannot be perfomed on a classical computer).</p>
+    <br>    
+    <h3 style="text-align: center"><a href="two_qubit_operations.html">Next Section</a></h3>
+    <p><br></p>
+    </div>
+  </body>
+</html>

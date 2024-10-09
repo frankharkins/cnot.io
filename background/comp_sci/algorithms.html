@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- /Bootstrap CSS -->
+    <link rel="stylesheet" href="/Bootstrap/css/bootstrap.css" media="screen">
+
+    <title>Algorithms (Background) | CNOT</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">CNOT</a>
+        <a href="/navigation/">
+        <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button></a>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/get_started/">Get Started</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about/">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contents/">Contents</a>
+      </li>
+    </ul>
+    </div>
+    </nav>
+    <div class='container'>
+    <h1><a href="../preliminary_maths/" style="text-decoration: none">Preliminary Computer Science</a></h1>
+        <div class="btn-group btn-group" style="margin: 2em" id="list">
+            <a href= "bits_binary.html" style="font-size: 1.2em" class="btn btn-default">Previous</a>
+            <a href="../comp_sci/" style="font-size: 1.2em" class="btn btn-default">Index</a>
+            <a href="/quantum_computing/" style="font-size: 1.2em; margin-left: .2em" class="btn btn-default"> Next Section</a>
+        </div>
+    <h2>Algorithms</h2>
+    <p>Here we introduce the concept of an algorithm and explain how algorithm performance is measured with some simple examples.</p>
+    <p><br></p>
+    <h3>Contents</h3>
+        <ol id="list">
+            <li><a href="#what_is_an_algorithm">What is an Algorithm?</a></li>
+            <li><a href="#algorithm_complexity">Algorithm Complexity</a>
+                <ul>
+                    <li><a href="#big-o-notation">Big-O-Notation</a></li>
+                </ul>
+            </li>
+        </ol>
+    <p><br></p>
+    <h2 id="#what_is_an_algorithm">What is an Algorithm? </h2>
+    <p>An algorithm is a very specific set of instructions that can be carried out by a computer. There can be no ambiguity in an algorithm since a computer is not able to think for itself. We generally start with an input state which in our case will be a sequence of bits, perform some operations on these bits and return an output state (again, in bits). 
+    </p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig6.png" style="width:50%; margin: 2em; margin-bottom: 3em" title="Algorithms take an input and return an output" >
+    </div>
+    </div>
+    <p>A very simple example of an algorithm could be one that finds the largest entry in a list of positive numbers:</p>
+    <h3>Example: Finding the Largest Number in a List</h3>
+    <p>We use the variable 'b' to keep track of the largest number.</p>
+    <ol>
+        <li>Start</li>
+        <li>Set ‘b’ to 0</li>
+        <li>For each number, ‘x’, in our list: 
+        <ul><li>if ‘x’ is bigger than b, set ‘b’ to the value of ‘x’</li></ul></li>
+    <li>Return ‘b’ as the biggest number in the list.</li>
+    </ol>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig5.gif" style="width:60%; margin: 2em; margin-bottom: 5em" title="Animation illustrating the algorithm iterating through the list, showing the values for 'b' and 'x' at each step" >
+    </div>
+    </div>
+    <p>In this example, the input is the list of numbers and the output is the largest number in the list. Note that the running time of the algorithm is proportional the size of the input list.</p>
+    <h2 id="#algorithm_complexity">Algorithm Complexity</h2>
+    <p>We measure the efficiency of an algorithm by how the running time grows with the number of input bits (n). For example:</p>
+    <ul style="font-family: 'Source Serif Pro', serif;">
+        <li>An algorithm that checks whether a number is even or odd must only check the rightmost bit, so this algorithm takes the same number of steps to run regardless of how big the number is. This is O(1) in big-O-notation.</li>
+        <li>An algorithm that counts the number of 1s in a binary sequence will grow proportionally to our input, this is O(n). If we look at our largest-number-in-a-list algorithm from before, we can see that the number of steps in our algorithm grows proportionally to the size of our list. Since our list is made from bits, this is O(n).</li>
+        <li>An algorithm that counts through each possible state our bits can be in will grow exponentially with the number of bits we have, this is O(2<sup>n</sup>).</li>
+    </ul>
+    <p>We group these different rates of growth into different ‘complexity classes’, bear in mind ‘complexity’ of an algorithm is not to do with how complicated it is to humans, but how many steps it takes for a computer.</p>
+    <p>But why do we measure algorithms like this? Different computers run at different speeds, but with a high enough number of bits we know that an algorithm from a lower complexity class will always outperform an algorithm from a higher complexity class. </p>
+    <p>Example:</p>
+    <p>We have an algorithm (we will call this algorithm ‘A’), that grows proportionally to 3n × 2<sup>n</sup>. We say this algorithm runs in ‘exponential time’, and runs in O(2<sup>n</sup>). Note that we have ignored the polynomial factor of 3n because it is negligible compared to the huge factor of 2<sup>n</sup>.</p>
+    <p>Now let’s compare this to another algorithm from a lower time complexity: Say we have another algorithm (B) that grows proportionally to 5n<sup>10</sup>, we say this algorithm runs in ‘polynomial time’ and has complexity O(n<sup>10</sup>), note again that we ignore the constant factor of 5 since this is insignificant compared to our polynomial factor n<sup>10</sup>.</p>
+    <p>For small problems (n &lt; 50), our exponential time algorithm (A) seems to outperform the polynomial time algorithm (B), but by the time n grows to 60, our polynomial time algorithm (B) is 100 times faster. If we go further and look at a problem with 100 bits, algorithm B is 1000000000000 times faster.</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <a href="https://www.desmos.com/calculator/98ctyry9kq">
+        <img src="img/fig7.png" style="width:60%; margin-top: 2em; margin-bottom: 1em; margin-right: 3em" title="Rough sketch of the performance of the two algorithms (A & B), we can see that after a large enough number of bits (n), the lower complexity algorithm overtakes the higher complexity algorithm. Click to see this example on Desmos graphing calculator." >
+        </a>
+    </div>
+    </div>
+    <p>Now if we were only working with small values for n then it might make sense to use algorithm A, but this is highly problem specific and depends on many factors such as the hardware you are using.</p>
+    <p><br></p>
+    <h2 id="big-o-notation">Big-O-Notation</h2>
+    <p>We have seen big-O-notation in use, but we will address it directly. When looking at the rate at which an algorithm grows with n, we often omit factors of a lower time complexity, e.g. an algorithm that grows by log(n)×n<sup>2</sup>  could said to have complexity O(n<sup>2</sup>), since logarithmic time is lower than polynomial time and has less effect at high n.</p>
+    <p><br></p>
+        <h3 style="text-align: center"><a href="/quantum_computing/">Next Section</a></h3>
+    </div>
+  </body>
+</html>

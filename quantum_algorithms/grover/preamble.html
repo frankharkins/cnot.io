@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- /Bootstrap CSS -->
+    <link rel="stylesheet" href="/Bootstrap/css/bootstrap.css" media="screen">
+
+    <title>Grover's Algorithm: Preamble | CNOT</title>
+	<link rel="icon" type="image/x-icon" href="/favicons/favicon.ico">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">CNOT</a>
+        <a href="/navigation/">
+        <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button></a>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/get_started/">Get Started</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about/">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contents/">Contents</a>
+      </li>
+    </ul>
+    </div>
+    </nav>
+    <div class='container'>
+    <h1><a href="../grover/" style="text-decoration: none">Grover's Algorithm</a></h1>
+        <div class="btn-group btn-group" style="margin: 2em" id="list">
+            <a href="../grover/" style="font-size: 1.2em" class="btn btn-default">Index</a>
+            <a href="grovers_algorithm.html" style="font-size: 1.2em; margin-left: .2em" class="btn btn-default"> Next</a>
+        </div>
+    <h2>Preamble</h2>
+        <p>This is the first section on Grover's algorithm. It sets up the problem of unstructured computational search in a way that it can be solved using quantum circuits, and provides context for the <a href="grovers_algorithm.html">next section</a>.</p>
+    <p><br></p>
+    <h3>Contents</h3>
+        <ul id="list">
+            <li><a href="#unstructured_search">Unstructured Search</a></li>
+            <li><a href="#thinking_like_a_computer">Thinking like a Computer</a></li>
+            <li><a href="#the_query_circuit">The Query Circuit</a></li>
+        </ul>
+    <p><br></p>
+    <h3 id="unstructured_search">Unstructured Search</h3>
+    <p>
+    A phonebook is an example of a structured database; Since a phonebook is sorted alphabetically, if given a name, we can quickly (in logarithmic time) locate that person’s phone number. Even if the phonebook has a large number of entries we can still find the name we’re looking pretty quickly. We will cover structured search in it’s own dedicated section.
+    </p>
+    <br>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig1.png" style="width:80%; margin-bottom: 1em" title="Finding a name from a phone number is a difficult task, even with a relatively small phonebook." >
+    </div>
+    </div>
+    <br>
+    <p>
+    But if we turn the problem around, i.e. we are given a phone number and asked to find it’s corresponding name, the search problem suddenly becomes very difficult. We can make no educated guesses about where the number we’re looking for might be. The best classical algorithm for unstructured search is ‘random guessing’, where we pick out entries at random until we happen upon the phone number we’re looking for. This algorithm grows linearly with the number of entries (N) in the phonebook, since it will take (on average) N/2 queries of the database to find the correct entry.
+    </p>
+    <br>
+    <h3 id="thinking_like_a_computer">Thinking about Unstructured Search like a Computer</h3>
+    <p>
+    Since there is absolutely no way to search a real phonebook using Grover’s algorithm, we need to think about database search like a computer scientist. Firstly, to help ease the transition to quantum circuits, we will assume the names and numbers in our phonebook are stored in binary, and we will call them ‘inputs’ and ‘outputs’ respectively. Now note that the number of entries we have in our database (N) is related to the number of bits (n) by N = 2<sup>n</sup>.
+    </p>
+    <br>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig2.png" style="width:80%; margin-bottom: 1em;" title="Database as an input / output table. This is analogous to a phonebook" >
+    </div>
+    </div>
+    <br>
+    <p>
+    By convention, we call the output we’re looking for ‘ω’.
+    </p>
+    <h3 id="the_query_circuit">The Query Circuit</h3>
+    <p>
+    The query circuit is a function that takes an address (the name) as input, and outputs the data at that address (the phone number). At the moment we treat the query circuit as a ‘black box’, which means we do not care about how it works, but we will do later. 
+    </p>
+    <br>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig3.png" style="width:60%" title="The query circuit checks the database and outputs the data at the input's address." >
+    </div>
+    </div>
+    <br>
+    <p>To perform a random guessing search, we input random addresses into the query circuit and check the output, repeating with different binary strings until the output equals the data we’re looking for. We add a ‘checker’ circuit that flips a ‘flag’ bit if our output is ω.</p>
+    <br>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig32.png" style="width:75%" title="We add a checker circuit to flip a bit if our input is correct." >
+    </div>
+    </div>
+    <br>
+    <p>Using our phonebook analogy, we put random names into the query circuit until it outputs the phone number we were given. This algorithm has a complexity of order 2<sup>n</sup> (exponential time).</p>
+    <br>
+    <h3 style="text-align: center"><a href="grovers_algorithm.html">Next Section</a></h3>
+    <p><br></p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- /Bootstrap CSS -->
+    <link rel="stylesheet" href="../../..//Bootstrap/css/bootstrap.css" media="screen">
+
+    <title>Dirac Notation &amp; Basic Matrix Algerbra | CNOT</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">CNOT</a>
+        <a href="/navigation/">
+        <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button></a>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/get_started/">Get Started</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about/">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contents/">Contents</a>
+      </li>
+    </ul>
+    </div>
+    </nav>
+    <div class='container'>
+    <h1><a href="../maths/" style="text-decoration: none">Preliminary Mathematics</a></h1>
+        <div class="btn-group btn-group" style="margin: 2em" id="list">
+            <a href="../maths/" style="font-size: 1.2em" class="btn btn-default">Index</a>
+            <a href="vectors_matrices.html" style="font-size: 1.2em; margin-left: .2em" class="btn btn-default"> Next</a>
+        </div>
+    <h2>Dirac Notation and Basic Matrix Algebra</h2>
+    <p>Here we introduce Dirac notation and revise some basic matrix algebra in the process.</p>
+    <p><br></p>
+    <h3>Contents</h3>
+        <ul id="list">
+                    <li><a href="#bras_kets">Bras &amp; Kets</a></li>
+                    <li><a href="#inner_product">The Inner Product</a></li>
+                    <li><a href="#outer_product">The Outer Product</a></li>
+                    <li><a href="#kronecker_product">The Kronecker Product</a></li>
+        </ul>
+    <p><br></p>
+    <h2 id="bras_kets">Bras &amp; Kets</h2>
+    <p>In matrix algebra, we have row and column vectors, in Dirac notation we write these vectors as ⟨Bras| and |Kets⟩ respectively. When bras, kets or matrices are next to eachother, matrix multiplication is implied. The advantage of this notation will become clear as we progress through the section.</p>
+    <p><br></p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig1.png" style="width:70%; margin-bottom: 5em" title="A 'bra' represents a row vector (left) and a 'ket' represents a column vector" >
+    </div>
+    </div>
+    <br>
+    <h2 id="inner_product">The Inner Product</h2>
+    <p>If we multiply a bra and a ket using matrix multiplication, we get a scalar quantity (for simplicity we regard complex numbers as scalars):</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig2.gif" style="width:55%; margin-bottom: 2em" title="Animation showing the calculation of the inner product of a bra and a ket">
+    </div>
+    </div>
+    <p>This is called the inner product. If |a⟩ and |b⟩ are orthogonal then:</p><br>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig3.png" style="width:55%; margin: 1em" title="If two vectors are orthogonal, their inner product will be 0.">
+    </div>
+    </div>
+    <p>And if |a⟩ is normalised then:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig4.png" style="width:55%; margin: 1em" title="Normalised vectors have a magnitude of 1">
+    </div>
+    </div><br>
+    <p>We can describe another vector as a combination of vectors. It's easy to see that if we can write a vector in terms of a convenient basis, certain multiplications become simpler. In this example, |a⟩ and |b⟩ are orthogonal:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig5.png" style="width:50%; margin: 1em" title="We can write vectors as linear combinations of other vectors">
+    </div>
+    <div class="mx-auto text-center">
+        <img src="img/fig6.gif" style="width:55%; margin: 1em; margin-bottom: 5em;" title="An example of calculating the inner product, where |a⟩ & |b⟩ are orthogonal">
+    </div>
+    </div><br>
+    <h2 id="outer_product">The Outer Product</h2>
+    <p>Again, following the rules of matrix multiplication, we can compute the outer product using a ket and a bra:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig7.gif" style="width:65%; margin-bottom: 2em" title="An example of calculating the outer product">
+    </div>
+    </div><br>
+    <p>We can write matrices in this form, for example:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig8.png" style="width:50%; margin: 2em" title="A matrix written as the sum of ket-bras">
+    </div>
+    </div><br>
+    <p>If we write matrices in this way, it becomes clear what the result of multiplication will be, even if we don't know what its elements are. For example, if |a⟩ and |b⟩ are orthonormal:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig9.png" style="width:50%; margin: 1em; margin-bottom: 5em" title="An example multiplication of a matrix, X, with a vector, |a⟩, where |a⟩ & |b⟩ are orthonormal">
+    </div>
+    </div><br>
+    <h2 id="kronecker_product">The Kronecker Product</h2>
+    <p>We can also multiply using the Kronecker product:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig10.gif" style="width:50%; margin: 2em;" title="Multiplying two 2x2 matrices with the Kronecker product">
+    </div>
+    </div><br>
+    <p>As you can see in the image above, the Kronecker product is notated by a circle with a cross in it (⊗). Often the kronecker product is implied when writing two kets next to eachother, i.e. &nbsp; |a⟩|b⟩ = |a⟩⊗|b⟩.</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig11.gif" style="width:50%; margin: 2em;" title="Multiplying two 2D vectors with the Kronecker product">
+    </div>
+    </div><br>
+    <p>Fortunately in this site we only consider square matrices and finite vectors with 2<sup>n</sup> elements, this simplifies a lot of algebra. In quantum computing we describe our computer's state through vectors, using the Kronecker product very quickly creates large matrices with many elements and this exponential increase in elements is where the difficulty in simulating a quantum computer comes from. We will discuss this properly in (link to section).</p>
+    <h3 style="text-align: center"><a href="vectors_matrices.html">Next Section</a></h3>
+    <p><br></p>
+
+    </div>
+  </body>
+</html>

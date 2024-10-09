@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- /Bootstrap CSS -->
+    <link rel="stylesheet" href="../../..//Bootstrap/css/bootstrap.css" media="screen">
+
+    <title>The Qubit, Superposition &amp; Measurement | CNOT</title>
+	<link rel="icon" type="image/x-icon" href="/favicons/favicon.ico">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">CNOT</a>
+        <a href="/navigation/">
+        <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button></a>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/get_started/">Get Started</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about/">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contents/">Contents</a>
+      </li>
+    </ul>
+    </div>
+    </nav>
+    <div class='container'>
+    <h1><a href="../maths/" style="text-decoration: none">Quantum Computing</a></h1>
+        <div class="btn-group btn-group" style="margin: 2em" id="list">
+            <a href="../quantum_computing/" style="font-size: 1.2em" class="btn btn-default">Index</a>
+            <a href="single_qubit_operations.html" style="font-size: 1.2em; margin-left: .2em" class="btn btn-default"> Next</a>
+        </div>
+    <h2>The Qubit, Superposition &amp; Measurement</h2>
+    <p>Here we introduce the quantum mechanical concepts needed for quantum computing. We introduce some ‘postulates’ and look at what these statements imply about our quantum computer, it is hoped that covering quantum computing in this style will help students when covering general quantum mechanics.</p>
+    <p><br></p>
+    <h3>Contents</h3>
+        <ul id="list">
+                    <li><a href="#the_rules">The Rules of Quantum Computing</a></li>
+                    <li><a href="#bloch_sphere">The Bloch Sphere</a></li>
+        </ul>
+    <p><br></p>
+    <h2 id="the_rules">The Rules of Quantum Computing</h2>
+    <p>There are certain statements in quantum mechanics we assume to be true without explanation (postulate), and the proof of their correctness comes from the accuracy of the predictions we derive from them. Here we give our own set of ‘postulates’, adapted from the postulates of quantum mechanics, and discuss their implications.</p>
+    <p><br></p>
+    <div class="row" style="margin: 1em">
+        <ol><li>The state of a quantum register (collection of qubits) can be described as a vector |ψ⟩ in Hilbert space that contains all the information that can be known about the system.</li></ol>
+    </div>
+    <br>
+    <p>Classically, the most simple system that can hold information is the bit. In quantum mechanics, the most simple system that can hold information is the qubit:</p>
+        <div class="row">
+        <div class="mx-auto text-center">
+        <img src="img/fig1.png" style="width:50%; margin: 4em" title="The state of a qubit can be in the space spanned by |0⟩ and |1⟩">
+        </div>
+        </div>
+    <p>As according to (1), the qubit can be described as a vector in Hilbert space, and the simplest vector we can have is a vector with two dimensions. Following the conventions of classical computing, we call these dimensions |0⟩ and |1⟩. This vector behaviour allows for our qubit to occupy the space spanned by |0⟩ &amp; |1⟩, and we call this property superposition.</p><br>
+    <div class="row" style="margin: 1em">
+        <ol start=2><li><ol style="list-style-type:lower-roman"><li>To measure a quantum register, we apply an Hermitian operator A</li>
+            <li>Upon measurement, the register will collapse into one of A's eigenvectors, with probability proportional to |a|<sup>2</sup>, where 'a' is the amplitude of that eigenvector.</li></ol></li></ol>
+    </div>
+    <p>There is a lot of information in this last statement, let's dissect it: Consider a single qubit, if our matrix A was:</p>
+        <div class="row">
+        <div class="mx-auto text-center">
+        <img src="img/fig2.png" style="width:50%; margin: 2em" title="This matrix has the eigenvectors |0⟩ & |1⟩, by convention we choose to measure in this basis (the computational basis).">
+        </div>
+        </div>
+        
+    <p>Then our qubit |q⟩ = a|0⟩ + b|1⟩ would collapse to |0⟩ with probability |a|<sup>2</sup> and |1⟩ with probability |b|<sup>2</sup>. By convention in quantum computing, we usually measure using in the matrix shown above. This collapses our qubits into either |0⟩ or |1⟩ and we call this measuring in the computational basis. This clearly tells us some more information about the behaviour of our qubit:</p>        
+    <p>Firstly, since the probability of obtaining a measurement is 1, the magnitude of our qubit vector must always be normalised to 1.</p>    
+    <p>Secondly, upon measurement, we destroy the superposition of our qubit and lose the information stored in its amplitudes. This is one of the unfortunate limitations of quantum computing: that despite all the information held in these qubit states we can only get a yes-or-no answer.</p>
+        <div class="row">
+        <div class="mx-auto text-center">
+        <img src="img/fig3.gif" style="width:60%; margin: 2em" title="Measuring a qubit changes its state to either |0⟩ or |1⟩, and we destroy the values of a & b in the process.">
+        </div>
+        </div>
+    <p><br></p>    
+    <h2 id="bloch_sphere">The Bloch Sphere</h2>
+        <p>Since we square the magnitude of our amplitudes to find the probability of measurement, certain qubit states are equivalent to us. We can ignore global phase (phase applied to the whole qubit). For example:</p>
+        <div class="row">
+        <div class="mx-auto text-center">
+        <img src="img/fig4.png" style="width:65%; margin: 2em" title="These two states are equivalent to us; to get from the left to the right we multiply the entire state by i.">
+        </div>
+        </div>
+        
+        <p>We have narrowed down the possible states of our qubits; their squared amplitudes must equal 1 and we only care about the difference in phase between our two amplitudes (a &amp; b). As a result, we can write the state of any qubit in the form:</p>
+        <div class="row">
+        <div class="mx-auto text-center">
+        <img src="img/fig5.png" style="width:70%; margin: 2em" title="The magnitude of our qubit must always be 1, and we can fix the phase of a because global phase is ignored.">
+        </div>
+        </div>        
+        <p>Using the two variables θ and ϕ, we can represent each possible qubit state as a point on the surface of a sphere (the Bloch sphere):</p>
+        <div class="row">
+        <div class="mx-auto text-center">
+        <img src="img/bloch_animation.gif" style="width:60%; margin: 2em" title="Animation showing the mapping of the possible qubit states to the Bloch sphere">
+        </div>
+        </div>
+        
+        <p>The Bloch sphere is very useful for visualising single-qubit states and will help us understand the effects of single-qubit operations. Remember for a qubit state, it’s important not to confuse its coordinates on the Bloch sphere with its state vector!</p>
+        <div class="row">
+        <div class="mx-auto text-center">
+        <img src="img/fig6.png" style="width:50%; margin: 2em; margin-right: 4em;" title="The state vector of a qubit and its coordinates on the Bloch sphere, also in vector form (spherical coordinates)">
+        </div>
+        </div>
+    <p><br></p>
+    <h3 style="text-align: center"><a href="single_qubit_operations.html">Next Section</a></h3>
+    <p><br></p>
+
+    </div>
+  </body>
+</html>

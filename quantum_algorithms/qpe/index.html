@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- /Bootstrap CSS -->
+    <link rel="stylesheet" href="/Bootstrap/css/bootstrap.css" media="screen">
+
+    <title>Quantum Phase Estimation | CNOT</title>
+    
+	<link rel="icon" type="image/x-icon" href="/favicons/favicon.ico">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">CNOT</a>
+        <a href="/navigation/">
+        <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button></a>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/get_started/">Get Started</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about/">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contents/">Contents</a>
+      </li>
+    </ul>
+    </div>
+    </nav>
+    <div class='container'>
+    <h1><a href="../maths/" style="text-decoration: none">Quantum Algorithms</a></h1>
+        <div class="btn-group btn-group" style="margin: 2em" id="list">
+            <a href="../" style="font-size: 1.2em" class="btn btn-default">Index</a>
+        </div>
+    <h2>The Quantum Phase Estimation Algorithm</h2>
+    <p>If you have just learnt about the quantum Fourier transform (QFT), then learning about the quantum phase estimation (QPE) algorithm is naturally the next step. It might not be obvious as to how QPE can be useful, but it plays a key role in other algorithms, including Shor’s famous factoring algorithm.</p>
+    <p><br></p>
+    <h3>Contents</h3>
+        <ol id="list">
+                    <li><a href="#warning">Warning</a></li>
+                    <li><a href="#problem">The Problem</a></li>
+                    <li><a href="#algorithm">The Algorithm</a></li>
+                    <li><a href="#circuit">Building a Circuit</a></li>
+                    <li><a href="#AQFT">Approximate Quantum Fourier Transform</a></li>
+        </ol>
+    <p><br></p>
+    <h2 id="warning">Beware</h2>
+    <p>As mentioned in the quantum Fourier transform section, many resources have their least significant qubits at the bottom. In this site we position ours at the top so the circuits we produce work with Quirk. Just bear in mind that other resources might organise their qubits in the reverse order (or ‘upside down’).</p>
+    <h2 id="problem">The Problem</h2>
+    <p>The problem to be solved is as follows: We have a unitary matrix U, if we perform U on some qubits in one of U’s eigenstates, the qubits will gain a phase factor. Our aim is to find this phase to an acceptable accuracy.</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig1.png" style="width:70%; margin: 2em; margin-bottom: 3em" title="The unitary matrix U gives our eigenstate |psi⟩ a phase factor e^(2*i*pi*phi), we aim to find phi" >
+    </div>
+    </div>
+    <p>It turns out (surprise!) that a quantum computer can do this efficiently.</p>
+    
+    <h3 id="algorithm">The Algorithm</h3>
+    <p>There are two parts to this algorithm, the first creates a Fourier state |~phi^2n⟩ and the second part uses the inverse-QFT to turn this into a classical number state we can measure and read. Below is a brief outline of the algorithm; don’t worry about understanding it all just yet, we will explain it in this section. </p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig4.png" style="width:45%; margin: 1.5em; margin-bottom: 3em" title="Formula for the QFT" >
+    </div>
+    </div>
+    <p>If you are familiar with the upside-down-CNOT identity, you will remember that the target qubit is in an eigenstate of the X-gate, and if that eigenstate is |-⟩ , the control qubit will inherit a negative phase and switch from |+⟩ to |-⟩ (or vice versa).</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig6.png" style="width:50%; margin: 1.5em; margin-bottom: 3em" title="Converting binary fractions into decimal" >
+    </div>
+    </div>
+    <p>In the quantum phase estimation algorithm, we use this effect to add phase to a qubit through a controlled-U operation:</p>
+    <div class="row">
+    <div class="mx-auto text-center" style="margin: 3em">
+        <img src="img/fig5-1.png" style="width:20%; margin: 0em;" title="We take an input of separate qubits" >
+        <img src="img/fig5-2.png" style="width:43%; margin: 0em;" title="I split this into three images and I'm not 100% sure why. I was trying to make it wrap round on small screens but who knows what's going on now" >
+        <img src="img/fig5-3.png" style="width:26%; margin: 0em;" title="The state can be written as the product of individual qubits (very useful)" >
+    </div>
+    </div>
+    <p>If this is not clear to you, I highly recommend following through with the maths to convince yourself of this. You may find reading over the upside-down-CNOT identity helpful.</p>
+    <p>There are two registers in this algorithm, one register (A) is set to the appropriate eigenstate, the other (B) is set to |+⟩ qubits. We then perform controlled-U operations on the register A, controlled by the qubits in B. Cleverly, we use multiple controlled-U operations per qubit to gain more precision.</p>
+    <p>When doing the QFT on n qubits, we can take a classical number state |x⟩ where x is between 0 and 2<sup>n</sup>, and transform it into it’s corresponding quantum Fourier state. In the QFT section we noticed a relation between this Fourier state and the number x:</p>
+    <div class="row">
+    <div class="mx-auto text-center" style="margin: 3em">
+        <img src="img/fig7-1.png" style="width:15%; margin: 0em;" title="We take the binary state |110⟩ = |6⟩" >
+        <img src="img/fig7-2.png" style="width:45%; margin: 0em;" title="The input bits affect the phase of the output bits" >
+        <img src="img/fig7-3.png" style="width:20%; margin: 0em;" title="The state can be written as the product of individual qubits (very useful)" >
+    </div>
+    </div>
+    <p>110<sub>(binary)</sub> = 6<sub>(decimal)</sub>. We can see that the QFT does indeed behave as described in the intuition section. In the Fourier state 6 we see that the bottommost qubit has a phase of 1 (no phase), the second has a phase of e<sup>iπ</sup> (0.5 of a full rotation) and the top qubit has a phase of e<sup>i3π/2</sup> (0.75 of a full rotation):</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig8.png" style="width:30%; margin: 1.5em; margin-bottom: 3em" title="6 in the Fourier basis" >
+    </div>
+    </div>
+    <h2 id="circuit">Building a Quantum Circuit</h2>
+    <p>Next, lets try and create a quantum circuit that carries this operation out. We’ll start with three qubits, then generalise to any number of qubits.</p>
+    <p>Firstly, its easier to implement the QFT upside down, the reasons for this will become apparent as we create the circuit but until then we will put some swaps at the end of the transform to arrange the qubits in the correct order.</p>
+    <p>We need the output state of the uppermost qubit to switch between |+⟩ and |-⟩ as it’s input switches between |0⟩ and |1⟩. We can easily implement this with a H-gate, this is the one-qubit QFT:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig9.png" style="width:50%; margin: 1.5em; margin-bottom: 3em" title="The single-qubit QFT" >
+    </div>
+    </div>
+    <p>Next, we need the second qubit to start in the state |+⟩ and rotate 90 degrees for each increment of our classical input. We accomplish this using a H-gate and a controlled-R<sub>ϕ</sub> gate, rotating by π/2 (also known as an S-gate). Note that we need to do this before applying the H-gate to the top qubit:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig10.png" style="width:70%; margin: 1.5em; margin-bottom: 3em" title="A two-qubit QFT" >
+    </div>
+    </div>
+    <p>We can verify that this works correctly for all 4 input states. Finally, we use another H-gate and two controlled-R<sub>ϕ</sub> gates (S &amp; T) to correctly transform the final qubit:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig11.png" style="width:45%; margin: 1.5em; margin-bottom: 3em" title="A three-qubit QFT" >
+    </div>
+    </div>
+        <p>Hopefully you have an idea as to how this scales to a larger number of qubits. <a href="https://algassert.com/quirk#circuit={%22cols%22:[[%22Counting8%22],[%22Chance8%22],[%22%E2%80%A6%22,%22%E2%80%A6%22,%22%E2%80%A6%22,%22%E2%80%A6%22,%22%E2%80%A6%22,%22%E2%80%A6%22,%22%E2%80%A6%22,%22%E2%80%A6%22],[%22Swap%22,1,1,1,1,1,1,%22Swap%22],[1,%22Swap%22,1,1,1,1,%22Swap%22],[1,1,%22Swap%22,1,1,%22Swap%22],[1,1,1,%22Swap%22,%22Swap%22],[%22H%22],[%22Z^%C2%BD%22,%22%E2%80%A2%22],[1,%22H%22],[%22Z^%C2%BC%22,%22Z^%C2%BD%22,%22%E2%80%A2%22],[1,1,%22H%22],[%22Z^%E2%85%9B%22,%22Z^%C2%BC%22,%22Z^%C2%BD%22,%22%E2%80%A2%22],[1,1,1,%22H%22],[%22Z^%E2%85%9F%E2%82%81%E2%82%86%22,%22Z^%E2%85%9B%22,%22Z^%C2%BC%22,%22Z^%C2%BD%22,%22%E2%80%A2%22],[1,1,1,1,%22H%22],[%22Z^%E2%85%9F%E2%82%83%E2%82%82%22,%22Z^%E2%85%9F%E2%82%81%E2%82%86%22,%22Z^%E2%85%9B%22,%22Z^%C2%BC%22,%22Z^%C2%BD%22,%22%E2%80%A2%22],[1,1,1,1,1,%22H%22],[%22Z^%E2%85%9F%E2%82%86%E2%82%84%22,%22Z^%E2%85%9F%E2%82%83%E2%82%82%22,%22Z^%E2%85%9F%E2%82%81%E2%82%86%22,%22Z^%E2%85%9B%22,%22Z^%C2%BC%22,%22Z^%C2%BD%22,%22%E2%80%A2%22],[1,1,1,1,1,1,%22H%22],[%22Z^%E2%85%9F%E2%82%81%E2%82%82%E2%82%88%22,%22Z^%E2%85%9F%E2%82%86%E2%82%84%22,%22Z^%E2%85%9F%E2%82%83%E2%82%82%22,%22Z^%E2%85%9F%E2%82%81%E2%82%86%22,%22Z^%E2%85%9B%22,%22Z^%C2%BC%22,%22Z^%C2%BD%22,%22%E2%80%A2%22],[1,1,1,1,1,1,1,%22H%22]]}">Quirk has a nice demonstration</a> of the QFT on 8 qubits. The general circuit for the QFT on n qubits looks like this:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig12.png" style="width:85%; margin: 1.5em; margin-bottom: 3em" title="The general QFT" >
+    </div>
+    </div>
+    <p>Remember that an S-gate is an R<sub>π/2</sub>-gate and that we need to add the swaps at the end of the circuit.</p>
+    <h3 id="AQFT">Approximate QFT</h3>
+    <p>You might notice that for large circuits with many qubits, we are spending a lot of time doing tiny rotations. These tiny rotations have a tiny impact on the final state of the qubits and it turns out that we can ignore rotations below a certain threshold and still get decent results. Cutting out these gates naturally improves performance and gives us a simple approximate QFT. Approximate QFTs can be created with O(nlog(n)) gates, we will not cover this here but it is worth remembering.</p>
+    <p><br></p>
+    <h3 style="text-align: center"><a href="../">Back to Quantum Algorithms</a></h3>
+    <p><br></p>
+    </div>
+  </body>
+</html>

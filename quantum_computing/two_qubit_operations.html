@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- /Bootstrap CSS -->
+    <link rel="stylesheet" href="/Bootstrap/css/bootstrap.css" media="screen">
+
+    <title>Two Qubit Operations | CNOT</title>
+	<link rel="icon" type="image/x-icon" href="/favicons/favicon.ico">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">CNOT</a>
+        <a href="/navigation/">
+        <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button></a>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/get_started/">Get Started</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about/">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contents/">Contents</a>
+      </li>
+    </ul>
+    </div>
+    </nav>
+    <div class='container'>
+    <h1>Quantum Computing</h1>
+        <div class="btn-group btn-group" style="margin: 2em" id="list">
+            <a href="quantum_circuits.html" style="font-size: 1.2em" class="btn btn-default">Previous</a>
+            <a href="../quantum_computing/" style="font-size: 1.2em" class="btn btn-default">Index</a>
+            <a href="circuit_examples.html" style="font-size: 1.2em" class="btn btn-default">Next</a>
+        </div>
+    <h2>Two Qubit Operations</h2>
+    <p>In this section we revise properties of matrices and vectors. We use informal definitions for the purposes of this site, so some of the statements in this section are true only for the scenarios we encounter in quantum computing and not for mathematics in general.</p>
+    <p><br></p>
+    <h3>Contents</h3>
+        <ol id="list">
+                    <li><a href="#controlled-x">The Controlled-X Gate</a></li>
+                    <li><a href="#entanglement">Entanglement</a></li>
+        </ol>
+    <p><br></p>
+    <h2 id="controlled-x">The Controlled-X Gate:</h2>
+    <p>The Controlled-X gate (A.K.A Controlled-X, CX, <a data-toggle="tooltip" title="Ayy!">CNOT</a>) takes two qubits, a control and a target. The <a data-toggle="tooltip" title="Aaayyyyy!!!">CNOT</a> gate performs an X-gate on the target qubit if the control qubit is |1⟩.</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig19.png" style="width:60%; margin: 1em; margin-bottom: 3em" title="CNOT gate as represented by a quantum circuit" >
+    </div>
+    </div>
+    <p>To represent the CNOT gate as a matrix, we must use the Kronecker product to describe the combined state of our two qubits:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig20.png" style="width:75%; margin: 2em" title="Representing the state of two qubits as a four-dimensional vector" >
+    </div>
+    </div>
+    <p>The CNOT gate then has the matrix:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig21.png" style="width:55%; margin: 1em" title="The CNOT matrix" >
+    </div>
+    <div class="mx-auto text-center">
+        <img src="img/fig22.png" style="width:65%; margin: 1em;margin-bottom: 3em" title="The CNOT gate switches the amplitudes of the states |10⟩ and |11⟩" >
+    </div>
+    </div>
+    <br>
+    <h3 id="entanglement">Entanglement</h3>
+    <p>We can see that the CNOT gate switches the amplitudes of the |10⟩ and |11⟩ states. It is clear to see how the CNOT gate acts on classical states, but what if we pass it qubits in superposition? If we first apply a H-gate to the control qubit we can create an interesting state:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig23.png" style="width:60%; margin: 2em" title="Creating an entangled state" >
+    </div>
+    </div>
+    <br>
+    <p>The control qubit enters the CNOT gate in the state |+⟩ and the target in the state |0⟩:</p>
+    <div>
+    <div class="mx-auto text-center">
+        <img src="img/fig24.png" style="width:55%; margin: 2.5em" title="The CNOT gate switches the amplitudes of |10⟩ and |11⟩, in this case creating entanglement" >
+    </div>
+    <div class="mx-auto text-center">
+        <img src="img/fig25.png" style="width:50%; margin: 2.5em" title="Our entangled state; the measurement of one qubit destroys the superposition and determines the state of the other." >
+    </div>
+    </div>
+    <br>
+    <p>We see that the states |01⟩ and |10⟩ both have zero amplitudes, this means we have no probability of measuring them. When we measure these qubits we will always measure either both |0⟩ or both |1⟩. We  say these qubits have become <u>entangled</u>; we can no longer write their states as separate 2D vectors and measuring one qubit destroys the superposition of the other!</p>
+    <h3 style="text-align: center"><a href="circuit_examples.html">Next Section</a></h3>
+    <p><br></p>
+    <br>
+    <p><br></p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- /Bootstrap CSS -->
+    <link rel="stylesheet" href="/Bootstrap/css/bootstrap.css" media="screen">
+
+    <title>Vectors and Matrices in Quantum Computing | CNOT</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">CNOT</a>
+        <a href="/navigation/">
+        <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button></a>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/get_started/">Get Started</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about/">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contents/">Contents</a>
+      </li>
+    </ul>
+    </div>
+    </nav>
+    <div class='container'>
+    <h1><a href="../maths/" style="text-decoration: none">Preliminary Mathematics</a></h1>
+        <div class="btn-group btn-group" style="margin: 2em" id="list">
+            <a href="dirac_and_matrix.html" style="font-size: 1.2em" class="btn btn-default">Previous</a>
+            <a href="../maths/" style="font-size: 1.2em" class="btn btn-default">Index</a>
+            <a href="/background/comp_sci/" style="font-size: 1.2em; margin-left: .2em" class="btn btn-default"> Next Section</a>
+        </div>
+    <h2>Vectors and Matrices in Quantum Computing</h2>
+    <p>In this section we revise properties of matrices and vectors. We use informal definitions for the purposes of this site, so some of the statements in this section are true only for the scenarios we encounter in quantum computing and not for mathematics in general.</p>
+    <p><br></p>
+    <h3>Contents</h3>
+        <ul id="list">
+                    <li><a href="#orthonormal_bases">Orthonormal Bases</a></li>
+                    <li><a href="#conjugate_transpose">The Conjugate Transpose</a></li>
+                <ul>
+                    <li><a href="#unitary_matrices">Unitary Matrices</a></li>
+                    <li><a href="#hermitian_matrices">Hermitian Matrices</a></li>
+                </ul>
+        </ul>
+    <p><br></p>
+    <h2 id="orthonormal_bases">Orthonormal Bases</h2>
+    <p>Two vectors are orthogonal if their inner product is zero. A vector is normalised if its magnitude is one. Orthonormal vectors are both orthogonal and normalised. In quantum computing we use the orthonormal basis vectors |0⟩ and |1⟩ to represent the off and on states of our qubits:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig12.png" style="width:60%; margin: 1em" title="The 'standard', or 'computational' basis" >
+    </div>
+    </div>
+    <p>These are not the only bases we will come across. The other most common 2D basis in quantum computing is made from the vectors |+⟩ &amp; |-⟩:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig13.png" style="width:60%; margin: 1em" title="Another basis made from the |+⟩ and |-⟩ states" >
+    </div>
+    </div>
+    <p>We can also write these in terms of |0⟩ and |1⟩, and we can easily see what their inner products will give:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig14.png" style="width:60%; margin: 1em" title="The |+⟩ and |-⟩ states written in terms of the standard basis" >
+    </div>
+    <div class="mx-auto text-center">
+        <img src="img/fig14-2.png" style="width:60%; margin: 2em" title="Some examples of inner products" >
+    </div>
+    </div>
+    <p>There is also the basis made from |↻⟩ and |↺⟩, although this is less commonly used:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig15.png" style="width:60%; margin: 1em" title="Another less commonly used basis, |↻⟩ and |↺⟩" >
+    </div>
+    </div>
+    <p><br></p>
+    <h2 id="conjugate_transpose">The Conjugate Transpose</h2>
+    <p>The conjugate transpose, also known as the Hermitian transpose, means taking the transpose of the matrix and complex conjugate of each element. In quantum computing we denote the conjugate transpose with a dagger (†):</p><br>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig16.gif" style="width:70%; margin-bottom: 5em" title="The conjugate transpose" >
+    </div>
+    </div>
+    <br>
+
+    <h2 id="unitary_matrices">Unitary Matrices</h2>
+    <p>A matrix is unitary if it’s conjugate transpose is its inverse:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig17.png" style="width:65%; margin: 1em" title="A unitary matrix's inverse is its complex conjugate" >
+    </div>
+    </div>
+    <br>
+    <p>We can see that any matrix formed from the product of two unitary matrices is also unitary:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig18.png" style="width:70%; margin: 1em" title="The product of unitary matrices is unitary" >
+    </div>
+    </div>
+    <br>
+    <h2 id="hermitian_matrices">Hermitian Matrices</h2>
+    <p>A Hermitian matrix is a matrix that is equal to its conjugate transpose:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig19.png" style="width:65%; margin: 1em; margin-bottom: 5em;" title="The product of unitary matrices is unitary" >
+    </div>
+    </div>
+    <br>
+        <h3 style="text-align: center"><a href="../comp_sci/">Next Section</a></h3>
+    <p><br></p>
+    </div>
+  </body>
+</html>

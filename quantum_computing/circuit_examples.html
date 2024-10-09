@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- /Bootstrap CSS -->
+    <link rel="stylesheet" href="/Bootstrap/css/bootstrap.css" media="screen">
+
+    <title>Circuit Examples | CNOT</title>
+    
+	<link rel="icon" type="image/x-icon" href="/favicons/favicon.ico">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">CNOT</a>
+        <a href="/navigation/">
+        <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button></a>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/get_started/">Get Started</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about/">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contents/">Contents</a>
+      </li>
+    </ul>
+    </div>
+    </nav>
+    <div class='container'>
+    <h1><a href="../maths/" style="text-decoration: none">Quantum Computing</a></h1>
+        <div class="btn-group btn-group" style="margin: 2em" id="list">
+            <a href="two_qubit_operations.html" style="font-size: 1.2em" class="btn btn-default">Previous</a>
+            <a href="../quantum_computing/" style="font-size: 1.2em" class="btn btn-default">Index</a>
+            <a href="extra_resources.html" style="font-size: 1.2em" class="btn btn-default">Next</a>
+        </div>
+    <h2>Circuit Examples</h2>
+    <p>In this section we learn about how quantum circuits work and investigate some circuit identities. This is a large section and the reader is encouraged to use it as a guide for experimentation with quantum circuits. </p>
+    <p><br></p>
+    <h3>Contents</h3>
+        <ol id="list">
+                    <li><a href="#quirk">Quirk Quantum Simulator</a></li>
+                    <li><a href="#CNOT">The CNOT Gate</a></li>
+                    <li><a href="#basic_superposition">Creating Basic Superposition</a></li>
+                    <li><a href="#entanglement">Entanglement</a></li>
+                    <li><a href="#upsidedown_CNOT">The 'Upside-Down' CNOT</a></li>
+        </ol>
+    <p><br></p>
+    <h2 id="quirk">Quirk Quantum Simulator</h2>
+    <p>It is important to experiment with quantum circuits to understand how they behave. To do this, you will need a quantum computing simulator. There are many good simulators with a range of strengths, but when beginning to learn about quantum circuits I strongly recommend using <a href="https://algassert.com/quirk">Quirk</a>. Quirk runs in your browser and requires no installation, it is easy to use, offers instantaneous feedback and can handle up to 16 qubits.</p>
+    <ul style="font-family: 'Source Serif Pro', serif;">
+        <li><a href="https://algassert.com/quirk">Quirk Quantum Simulator</a></li>
+    </ul>
+    <p>To use Quirk, click and drag a gate onto the circuit. To remove the gate you can click it with the middle mouse button or drag it off the screen. We will use Quirk to demonstrate some circuit identities, I recommend trying the circuits out yourself along with me.</p><p><br></p>
+    
+    <h2 id="CNOT">The CNOT Gate</h2>
+    <h4>(Getting Comfortable with Quirk)</h4>
+    <p>We will start by looking at the CNOT gate. This is not an identity, but is a good introduction to using Quirk. First let’s drag a control onto the top qubit, and a target onto the bottom directly underneath it. We notice that our qubits started in the state |00⟩ and finish in the state |00⟩ (both qubits are OFF). We can see this on the amplitude display and the Bloch sphere displays:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig26.png" style="width:85%; margin: 1em; margin-bottom: 3em" title="The CNOT gate in Quirk" >
+    </div>
+    </div>
+    <p>Additionally, the measurement displays show we have 100% probability of measuring each qubit as OFF (You can hover your cursor over the displays to get more detailed information).</p>
+    <p>Now lets turn the top qubit ON before it hits the CNOT gate (i.e. input |01⟩). We see that both qubits finish in the state ON (|11⟩). This should not be a surprise since the CNOT gate switches the amplitudes |01⟩ and |11⟩. Note that our topmost qubit in Quirk is now our rightmost qubit in Dirac notation – you can choose which way round you write your qubits but remember to be consistent!</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig27.png" style="width:80%; margin: 2em" title="The CNOT gate in action" >
+    </div>
+    </div>
+    <p>The final part of the exercise is to try the other possible input states (|10⟩ &amp; |11⟩) and check that they produce the expected output.</p>
+    <p><br></p>
+    <h2 id="basic_superposition">Creating Basic Superposition</h2>
+    <p>So far, we have not actually seen any quantum effects. Let’s add a H-gate to a qubit. Looking at the Bloch display, we see that the qubit is in the state |+⟩ as expected:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig28.png" style="width:90%; margin: 1.5em; margin-bottom: 3em" title="Transforming |0⟩ to |+⟩" >
+    </div>
+    </div>
+    <p>A huge advantage to simulators over real quantum computers is that we can ‘peak’ at the states of our qubits without destroying them. Lets now create the state |-⟩ by adding a Z-gate after the H-gate. We see our qubit state has the same magnitudes of |0⟩ and |1⟩, but it’s phase has changed. If we were to measure |+⟩ and |-⟩ states on a real quantum computer over many runs, we would get the same results (half ON and half OFF on average), but using a simulator we can see much more information. This is extremely useful for experimenting with and debugging circuits.</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig29.png" style="width:90%; margin: 1.5em; margin-bottom: 3em" title="Quirk allows us to see the states of our qubits without collapsing them to |0⟩ or |1⟩" >
+    </div>
+    </div>
+    <h2 id="entanglement">Entanglement</h2>
+    <p>Lets create a Bell state as we saw in the previous section:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig30.png" style="width:80%; margin: 1.5em; margin-bottom: 3em" title="Creating a Bell state in Quirk" >
+    </div>
+    </div>
+    <p>Notice our Bloch spheres have given up because our qubits are entangled and we can no longer describe their states independently. We can instead look at the amplitude display to see the state of the full system. As we saw in the last section, the states |00⟩ and |11⟩ have equal amplitudes of 1/√<span style="text-decoration: overline">2</span> &nbsp;:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig25.png" style="width:60%; margin: 1.5em; margin-bottom: 3em" title="The Bell state as seen in the previous section" >
+    </div>
+    </div>
+    <p>To get a better idea of what we’d see in a real quantum computer, let’s add a ‘chance’ probability display and drag it down to cover both lines. This display shows us the probability of measuring a combination of qubits. We can see that we have a 50% chance of measuring both OFF and both ON, but no chance of measuring one ON and one OFF (hover your cursor over the display to see the dialogue box): </p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig31.png" style="width:70%; margin: 1.5em; margin-bottom: 3em" title="The 'chance' display shows us what we are likely to measure in a real quantum computer (with no error)" >
+    </div>
+    </div>
+    <p>I now recommend playing around with H, Z and CNOT gates and observing the states different combinations give.</p><p><br></p>
+    <h2 id="upsidedown_CNOT">The 'Upside-Down' CNOT Gate</h2>
+    <p><span class="text-muted">Note: ‘Upside-Down’ is clunky terminology, but I wanted to avoid ‘reverse’ or ‘inverted’ since I normally use this to mean a circuit that reverses or ‘undoes’ an operation.</span></p>
+    <p>A popular quantum circuit identity is shown below. Recreate this circuit in Quirk and experiment with different input states:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig32.png" style="width:60%; margin: 2em; margin-bottom: 3em" title="Try creating this circuit in Quirk and experimenting with it" >
+    </div>
+    </div>
+    <p>After trying each input state, you might come to the conclusion that this circuit is equivalent to a CNOT acting on the qubits ‘backwards’:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig33.png" style="width:60%; margin: 2em; margin-bottom: 4em" title="This circuit acts as a CNOT, but upside-down!" >
+    </div>
+    </div>
+    <h3>Verification</h3>
+    <p>We can check this by doing matrix multiplications to prove the identity. The CNOT as we know has the matrix:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig21.png" style="width:60%; margin: 2em; margin-bottom: 4em" title="This matrix describes a CNOT" >
+    </div>
+    </div>
+    <p>And switches the amplitude of the states |10⟩ and |11⟩. Our upside-down CNOT instead switches the amplitudes of the states |01⟩ and |11⟩, and therefore is described by the matrix:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig34.png" style="width:60%; margin: 2em; margin-bottom: 4em" title="Matrix of the upside-down CNOT" >
+    </div>
+    </div>
+    <p>To calculate the matrix of the two H-gates, we must use the Kronecker product as we did to describe the states of two qubits:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig35.png" style="width:60%; margin: 2em; margin-bottom: 0em" title="To find the matrix for two single-qubit gates acting simultaneously, we take their Kronecker product" >
+    </div>
+    </div>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig36.png" style="width:60%; margin: 2em; margin-bottom: 3em" title="You can start to see why this is difficult to compute" >
+    </div>
+    </div>
+    <p>So the total matrix of this circuit is:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig37.png" style="width:35%; margin: 1em; margin-right: 0.3em;" title="We can do a matrix multiplication to find the effect of our circuit" >
+        <img src="img/fig37-1.png" style="width:1.5%; margin: 0em;" title="I split this into three images and I'm not 100% sure why. I was trying to make it wrap round on small screens but who knows what's going on now" >
+        <img src="img/fig38.png" style="width:55%; margin: 1em; margin-left: 0.3em;" title="Even two-qubit circuits quickly become complex" >
+    </div>
+    </div>
+    <p>This is what your quantum simulator is doing behind the scenes, and it’s easy to see how adding more qubits can quickly result in large matrices with an extremely large number of elements. By using a matrix multiplication calculator or just taking my word for it, (I don’t recommend doing this by hand), we find that this calculation does give the expected matrix of the upside-down CNOT.</p><br>
+    <h3>But Why?</h3>
+    <p>Checking circuit identities in this way is a useful skill, but crunching numbers doesn’t always give us an understanding of what’s going on. To do so, let’s first look at this example:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig39.png" style="width:70%; margin: 1.5em; margin-bottom: 3em" title="The X-gate has no effect on a |+⟩ state, so the state of the control qubit has no effect on the target qubit" >
+    </div>
+    </div>
+    <p>Here our target is in the state |+⟩. Applying an X-gate to a |+⟩ qubit has no effect, so it should be no surprise that the state of the control qubit has no effect on the state of the target qubit. Whether the controlled-X is applied or not, our target will remain in the state |+⟩. Experiment with different inputs on the control qubit and verify this.</p>
+    <p>Since we transform the state |0⟩ to the state |+⟩ and back using a H-gate, the following circuit will always output the target in the state |0⟩ regardless of what state the control is in:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig40.png" style="width:70%; margin: 1.5em; margin-bottom: 3em" title="This should follow easily from the previous image" >
+    </div>
+    </div>
+    <p>What if instead we were to pass the target as a |-⟩ qubit? We remember that:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig9.png" style="width:65%; margin: 1.5em; margin-bottom: 3em" title="Applying an X-gate to |-⟩ gives the state -|-⟩" >
+    </div>
+    </div>
+    <p>So applying the X-gate introduces a negative phase. Interestingly, this negative phase not only applies to the target qubit, but also to the control qubit since their states are entangled. If our control qubit is in the state |0⟩, it will not introduce the negative phase, and pass through unchanged, but if our control qubit is in the state |1⟩, it will acquire the negative phase and come out of the circuit as -|1⟩: </p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig41.gif" style="width:65%; margin: 1.5em; margin-bottom: 3em" title="The negative phase applies to the combined state of the two qubits." >
+    </div>
+    </div>
+    <p>This transformation has the effect of switching a |+⟩ state into a |-⟩ state:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig43.png" style="width:60%; margin: 2em;" title="|+⟩ and |-⟩ states composed from |0⟩ and |1⟩ states" >
+    </div>
+    <div class="mx-auto text-center">
+        <img src="img/fig42.png" style="width:65%; margin: 1.5em; margin-bottom: 3em" title="This conditional phase change switches the state |+⟩ to |-⟩ and vice versa" >
+    </div>
+    </div>
+    <p>We can see that the state of the target qubit switches the state of the control qubit. If you are lucky, it will now be clear how the upside-down CNOT circuit identity has the effect it does. If you are like the rest of us, you will need to revisit this example, experiment with it in Quirk and read other explanations (such as this <a href="https://www.reddit.com/r/QuantumComputing/comments/at6t8r/explaining_the_reversed_cnot_identity/">concise breakdown from u/QCI-Austin</a>).</p>
+    <p><br></p>
+    <h3 style="text-align: center"><a href="extra_resources.html">Next Section</a></h3>
+    <p><br></p>
+    </div>
+  </body>
+</html>

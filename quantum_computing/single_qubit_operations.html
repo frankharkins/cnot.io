@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- /Bootstrap CSS -->
+    <link rel="stylesheet" href="/Bootstrap/css/bootstrap.css" media="screen">
+
+    <title>Single Qubit Operations | CNOT</title>
+	<link rel="icon" type="image/x-icon" href="/favicons/favicon.ico">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">CNOT</a>
+        <a href="/navigation/">
+        <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button></a>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/get_started/">Get Started</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about/">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contents/">Contents</a>
+      </li>
+    </ul>
+    </div>
+    </nav>
+    <div class='container'>
+    <h1>Quantum Computing</h1>
+        <div class="btn-group btn-group" style="margin: 2em" id="list">
+            <a href="the_qubit.html" style="font-size: 1.2em" class="btn btn-default">Previous</a>
+            <a href="../quantum_computing/" style="font-size: 1.2em" class="btn btn-default">Index</a>
+            <a href="quantum_circuits.html" style="font-size: 1.2em; margin-left: .2em" class="btn btn-default"> Next</a>
+        </div>
+    <h2>Single Qubit Operations</h2>
+    <p>In this section, we introduce quantum gates. Quantum gates are fundamental operations that act as building blocks for quantum algorithms. It can be shown that a small set of quantum gates is enough to carry out any quantum computation, we call these sets universal quantum gates. Understanding the operation of individual quantum gates is useful for demonstrating quantum phenomena and in turn understanding larger quantum algorithms.
+</p>
+    <p><br></p>
+    <h3>Contents</h3>
+        <ol id="list">
+                    <li><a href="#single_qubit_operations">Single Qubit Operations</a>
+                <ul>
+                    <li><a href="#xyzgates">The X,Y &amp; Z-Gates</a></li>
+                    <li><a href="#hgate">The H-Gate</a></li>
+                    <li><a href="#phase_shift_gate">The Phase Shift Gate</a></li>
+                </ul>
+                </li>
+        </ol>
+    <p><br></p>
+    <h2 id="xyzgates">The X, Y &amp; Z-Gates</h2>
+    <p>Single qubit quantum gates can be represented by a 2×2 matrix that acts on our 2D qubit vector. The X-gate is one such gate:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig7.png" style="width:60%; margin: 2em" title="The 'standard', or 'computational' basis" >
+    </div>
+    </div>
+    <p>As we can see, the X-gate switches the amplitudes of |1⟩ and |0⟩ in our qubit, for this reason it is often known as a 'bit flip'. It is also analogous to the classical 'NOT' gate and similarly inherits this name as well.</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig8.png" style="width:60%; margin: 2em" title="The X-Gate is analogous to the classical 'NOT' gate." >
+    </div>
+    </div>
+    <p>It is clear how to the X-gate operates on classical classical states, but what about on superpositions?</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig9.png" style="width:60%; margin: 2em" title="The effect of the X-gate on |+⟩ and |-⟩ states." >
+    </div>
+    </div>
+    <p>We can see that the X-gate has no effect on the state |+⟩, and introduces a negative phase to |-⟩, this is because these states are both eigenvectors of X.</p>
+    <p> The X-gate corresponds to a rotation of π around the X-axis of the Bloch sphere. Similarly the Y &amp; Z-gates perform rotations of π around their respective axes:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig10X.png" style="width:50%; margin: 0.5em; margin-top: 2.5em; margin-bottom: 2.5em" title="The X-Gate, its matrix and rotation around the Bloch sphere." >
+    </div>
+    <div class="mx-auto text-center">
+        <img src="img/fig10Y.png" style="width:50%; margin: 0.5em; margin-top: 2.5em; margin-bottom: 2.5em" title="The Y-Gate, its matrix and rotation around the Bloch sphere." >
+    </div>
+    <div class="mx-auto text-center">
+        <img src="img/fig10Z.png" style="width:50%; margin: 0.5em; margin-top: 2.5em; margin-bottom: 2.5em" title="The Z-Gate, its matrix and rotation around the Bloch sphere." >
+    </div>
+    </div>
+    <p><br></p>
+    <h2 id="hgate">The H-Gate</h2>
+    <p>The Hadamard gate (H-gate) has the matrix:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig11.png" style="width:60%; margin: 1em" title="The Hadamard transform and its matrix in the computational basis" >
+    </div>
+    </div>
+    <p>And creates superposition from a |0⟩ or |1⟩ state. As with the previous gates we've learnt about, the H-gate is its own inverse.</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig12.png" style="width:60%; margin: 2em" title="Effects of the H-gate on some different states" >
+    </div>
+    </div>
+    <p><br></p>
+    <h2 id="phase_shift_gate">The Phase Shift Gate</h2>
+    <p>The phase shift gate change the phase (surprise!) of the state |1⟩:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig13.png" style="width:70%; margin: 3em" title="The phase shift gate and its inverse" >
+    </div>
+    </div>
+    <p>Unlike the previous gates, the phase shift gate is not necessarily its own inverse, to reverse the change we must apply a phase shift in the other direction. Theoretically we can choose any phase shift. We call the phase shift by ϕ = π/4 the T-gate:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig14.png" style="width:65%; margin: 2em" title="The T-Gate" >
+    </div>
+    </div>
+    <br>
+    <p>And we call the the phase shift by ϕ = π the Z-gate:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig15.png" style="width:70%; margin: 2em" title="The Z-gate as a special case of the phase shift gate" >
+    </div>
+    </div>
+    <p>We can now see why the T-gate is sometimes known as the &nbsp;<sup>4</sup>√<span style="text-decoration: overline"> Z </span> &nbsp;gate: because four successive T-gates have the same effect as one Z-gate.</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig16.png" style="width:60%; margin: 3em" title="Four successive T-gates is equivalent to one Z-gate" >
+    </div>
+    </div>
+    <br>
+
+    <br>    
+    <h3 style="text-align: center"><a href="quantum_circuits.html">Next Section</a></h3>
+    <p><br></p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- /Bootstrap CSS -->
+    <link rel="stylesheet" href="/Bootstrap/css/bootstrap.css" media="screen">
+
+    <title> Using Grover's Algorithm | CNOT</title>
+	<link rel="icon" type="image/x-icon" href="/favicons/favicon.ico">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">CNOT</a>
+        <a href="/navigation/">
+        <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button></a>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/get_started/">Get Started</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about/">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contents/">Contents</a>
+      </li>
+    </ul>
+    </div>
+    </nav>
+    <div class='container'>
+     <h1><a href="../grover/" style="text-decoration: none">Grover's Algorithm</a></h1>
+        <div class="btn-group btn-group" style="margin: 2em" id="list">
+            <a href="grovers_algorithm.html" style="font-size: 1.2em" class="btn btn-default">Previous</a>
+            <a href="../grover/" style="font-size: 1.2em" class="btn btn-default">Index</a>
+        </div>
+    <h2>Using Grover's Algorithm</h2>
+    <h4>An Example</h4>
+    <p>In this section we give an example of using Grover’s algorithm (quantum search) to solve a computational problem. This should hopefully help the reader understand how we can turn our oracle into a usable quantum circuit.</p>
+    <p><br></p>
+    <h3>Contents</h3>
+        <ul id="list">
+            <li><a href="#computational_search">Computational Search</a></li>
+            <ul><li><a href="#np-complete_problems">NP-Complete Problems</a></li></ul>
+            <li><a href="#sat_problems">SAT Problems</a></li>
+            <ul>
+                <li><a href="#background">Background</a></li>
+                <li><a href="#what_is_a_sat_problem">What is a SAT Problem?</a></li>
+            </ul>
+            <li><a href="#building_a_sat_oracle">Building a SAT Oracle</a></li>
+            <li><a href="#full_sat_solving_circuit">A Full SAT Solving Circuit</a></li>
+        </ul>
+    <p><br></p>
+    <h2 id="computational_search">Computational Search</h2>
+    <p>Until now we have described our oracle as querying a database. While we could in theory use a real database, such as phonebook, we would need to query it in superposition which would require specialised hardware which is beyond the scope of this site. Instead we will apply quantum search to computational problems.</p>
+    <p>Say we have a function:</p>
+    <div class="mx-auto text-center">
+        <img src="img/fig16.png" style="width: 170px; margin-bottom: 1.5em;" title="A funtion y = f(x)">
+    </div>
+    <p>And we want to find the value of x that gives a desired value of y, a solution to this problem is to use computational search; we search through all the possible values of x until we output y. </p>
+    <div class="mx-auto text-center">
+        <img src="img/fig17.png" style="width:220px; margin-bottom: 2em;" title="A table of inputs (x) and outputs (f(x)), just like a database.">
+    </div>
+    <p>This still behaves as a database search, the difference is that instead of querying an external database, we can do the computation f(x) right on our computer. An example of computational search could be path finding, where we try different paths and calculate their length until we find a sufficiently short one, or solving sudoku puzzles by trying random combinations of variables until we find a solution. </p>
+    <p>Note that both these problems have structure that can be exploited, if you have ever tried a sudoku you will know that there are much cleverer ways to solve it than random guessing, and that these methods are much quicker! We will discuss exploiting structure in a later section</p>
+    <h3 id="np-complete_problems">NP- Complete Problems</h3>
+    <p>NP-complete problems are problems in which it is easy (polynomial time) to verify a solution, but difficult (exponential time, as far as we know) to find the solution. NP-complete problems are very important in computer science; you may have heard of P vs NP - this is a famous unsolved problem that asks whether a polynomial-time solution to NP-complete problems exists.</p>
+    <p>Using the example of a Sudoku: If you were given the solution to a Sudoku you could verify it very quickly, possibly in under a minute, but <i>finding</i> the answer to a Sudoku normally takes a lot longer.</p>
+    <p>Algorithms for solving NP-complete problems often involve some kind of computational search which makes them a great potential application for our quantum search. </p>
+    <p><br></p>
+    <h2 id="sat_problems">SAT Problems</h2>
+    <p>We now introduce Boolean Satisfiability (SAT) as an example of a real computational problem that can be solved using quantum search. </p>
+    <h3 id="background">Background</h3>
+    <p>We will use Grover’s algorithm to solve SAT problems, a specific NP-complete problem. There is no known algorithm that solves an NP-complete problem in less than exponential time, but a solution can be verified in polynomial time.</p>
+    <p>SAT was the first problem proven to be NP-complete, and due to this has been widely studied. SAT is not only useful for purely mathematical uses; encryption algorithms such as the Data Encryption Standard can be reduced to 3-SAT and SAT solvers can be used in protein design and circuit synthesis.</p>
+    <h3 id="what_is_a_sat_problem">What is a SAT Problem?</h3>
+    <p>SAT is short for Boolean Satisfiability. </p>
+    <p>A SAT problem takes n variables which can be assigned either ‘True’ or ‘False’ (in our computer, our qubits are our variables, we use |1⟩ to represent ‘True’ and |0⟩ to represent ‘False’). </p>
+    <p>A clause is a collection of literals, and a literal describes the assignment of a specific variable. For example the clause given below has three literals (the ¬ indicates a false literal, the ∨ is the Boolean ‘OR’ and demands that at least one clause must be satisfied):</p>
+    <div class="mx-auto text-center">
+        <img src="img/fig18.png" style="width:50%; margin: 1.5em; margin-bottom: 2.5em" title="A SAT clause">
+    </div>
+    <p>So the only state that satisfies this clause has:</p>
+    <div class="mx-auto text-center">
+        <img src="img/fig18-1.png" style="width:55%; margin: 1.5em; margin-bottom: 2.5em" title="A SAT clause">
+    </div>
+    <p>If at least one of these criteria are met, the clause is satisfied, so each clause can be seen as ruling out specific combinations of variable assignments. A solution is an assignment of the n variables that satisfies every clause. In a <i>k</i>-SAT problem there are <i>m</i> clauses, with <i>k</i> literals in each clause. The hardest SAT problems have a small (but none zero) number of solutions, these problems generally have a fixed ratio of m to n which depends on k, for 3-SAT this ratio is ∼ 5, so there are approximately 5 clauses per variable in a difficult 3-SAT problem.</p>
+    <p>We can map each clause in a SAT problem to a k-input Toffoli gate. Since each clause rules out one combination of variables, we can flip a target bit if our clause is unsatisfied:</p>
+    <div class="mx-auto text-center">
+        <img src="img/fig19.png" style="width:75%; margin: 1.5em; margin-bottom: 3em" title="A SAT clause (left) and its implementation as a quantum gate (right)">
+    </div>
+    <h3 id="building_a_sat_oracle">Building a SAT Oracle</h3>
+    <p>First we need to create our classical SAT query circuit. The simplest way we can do this is to have each clause flip a different ancillary |0⟩ qubit, and our checker circuit only acts if no clauses are unsatisfied. We then reverse our classical query circuit to get a complete oracle:</p>
+    <div class="mx-auto text-center">
+        <img src="img/fig20.png" style="width:50%; margin: 1em;" title="A working oracle: This circuit inverts the phase of any solutions to a SAT problem">
+    </div>
+    <p>We now have a circuit that only acts on the |-⟩ qubit if all clauses are satisfied – a functioning oracle! It must be noted that while this circuit works, it uses a large number of ancillary qubits; we discuss how we can optimise our circuits in (link to section).</p>
+    <h2 id="full_sat_solving_circuit">A Full SAT Solving Circuit</h2>
+    <p>We now have a working oracle, all we need to do is combine it with our diffusion operator and create our starting state, |s⟩:</p>
+    <div class="mx-auto text-center">
+        <img src="img/fig21.png" style="width:40%; margin: 2.5em;" title="A full SAT solving quantum circuit">
+    </div>
+        <p>This example problem has two clauses and two solutions (|001⟩ &amp; |101⟩).</p>
+        <ul style="font-family: 'Source Serif Pro', serif;"><li><a href="http://algassert.com/quirk#circuit={%22cols%22:[[1,1,1,1,1,%22H%22],[%22Chance3%22,1,1,1,1,%22Z%22],[%22H%22,%22H%22,%22H%22,1,1,%22Bloch%22],[%22%E2%97%A6%22,%22%E2%97%A6%22,1,%22X%22],[1,%22%E2%80%A2%22,1,1,%22X%22],[1,1,1,%22%E2%97%A6%22,%22%E2%97%A6%22,%22X%22],[1,%22%E2%80%A2%22,1,1,%22X%22],[%22%E2%97%A6%22,%22%E2%97%A6%22,1,%22X%22],[%22H%22,%22H%22,%22H%22],[%22%E2%97%A6%22,%22%E2%97%A6%22,%22%E2%97%A6%22,1,1,%22X%22],[%22H%22,%22H%22,%22H%22],[%22Chance3%22,1,1,1,1,%22Bloch%22]]}">See this circuit running in Quirk</a></li></ul>
+        <p>We only needed one iteration to achieve 100% probability of measuring a solution.</p>
+        <p>Note that this example solves a 2-SAT problem, which is not NP-complete and does have a polynomial time algorithm. This problem was chosen for this example to keep the circuit to 6 qubits and 9 columns, but this exact process can be used to solve 3-SAT &amp; larger problems.</p>
+    <h2 id="considerations">Considerations</h2>
+    <p>This example is intended to:</p>
+    <ol style="font-family: 'Source Serif Pro', serif;">
+        <li>Show how quantum search can be useful, and provide some motivation for learning about quantum search.</li>
+        <li>Give an example of converting real problems into quantum circuits.</li>
+    </ol>
+    <p>Unfortunately this SAT solver would not be very useful compared to modern classical SAT solvers for a few main reasons:</p>
+    <ol style="font-family: 'Source Serif Pro', serif;">
+        <li>We don’t know how many solutions there are to each problem and we risk over-rotating and getting no useful answer at all.</li>
+        <li>This search is naïve, or 'brute force' - we don’t exploit any structure.</li>
+        <li>The number of ancillary qubits needed is very large (much greater than n).</li>
+    </ol>
+    <p>We will address each of these points and discuss how to overcome them in later section.</p><br>
+    <h3 style="text-align: center"><a href="/quantum_algorithms/">Quantum Algorithms Index</a></h3>
+    <p><br></p>
+    <p><br></p>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- /Bootstrap CSS -->
+    <link rel="stylesheet" href="/Bootstrap/css/bootstrap.css" media="screen">
+
+    <title>The Deutsch-Joza Algorithm | CNOT</title>
+	<link rel="icon" type="image/x-icon" href="/favicons/favicon.ico">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">CNOT</a>
+        <a href="/navigation/">
+        <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button></a>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="/get_started/">Get Started</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about/">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contents/">Contents</a>
+      </li>
+    </ul>
+    </div>
+    </nav>
+    <div class='container'>
+    <h1><a href="../grover/" style="text-decoration: none">The Deutsch-Joza Algorithm</a></h1>
+        <div class="btn-group btn-group" style="margin: 2em" id="list">
+            <a href="algorithm.html" style="font-size: 1.2em" class="btn btn-default">Previous</a>
+            <a href="../deutsch-joza/" style="font-size: 1.2em" class="btn btn-default">Index</a>
+
+        </div>
+    <p><br></p>
+    <h2>How does the Deutsch-Joza algorithm work?</h2>
+    <p>Lets look at the three main steps of the algorithm and try to work out what’s happening.</p>
+    <ol style="font-family: 'Source Serif Pro', serif;">
+    <li>Set the output qubit to |-⟩</li>
+    <p>This is easily accomplished with a H-gate and a Z-gate.</p>
+    <li>Apply H-gates to the input qubits</li>
+    <p>Starting with the all-zeroes state (|000...0⟩), we apply a H-gate to each qubit. This puts each qubit into the state |+⟩, and we will call the new state of the register |s⟩. We can  think of this state as an equal superposition of all the states in the computational basis:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig9.png" style="width:75%; margin: 2em; margin-left: 0em" title="Creating the state |s⟩ from our initial all-zeroes state" >
+    </div>
+    </div>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig10.png" style="width:65%; margin: 2em; margin-left: 0em" title="|s⟩ is an equal superposition of all possible states in the computational basis" >
+    </div>
+    </div>    
+    <p>It’s important to remember for later in this explanation that H-gates are their own inverse, i.e. if we perform this operation on the state |s⟩, we will get back the state |00...0⟩ with certainty.</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig11.png" style="width:70%; margin: 2em;" title="This operation also transforms the state |s⟩ back into the all-zeroes state" >
+    </div>
+    </div> 
+    <li>Apply the black box</li>
+    <p>You may recall the <a href="/quantum_computing/circuit_examples.html#upsidedown_CNOT">Upside-Down CNOT circuit</a>; the concepts there may help your understanding of this section.</p>
+    <p>If we feed the box a classical state, it can either do nothing, or it can trigger the box to flip the |-⟩ qubit. If a classical state <i>does</i> trigger the box to flip the |-⟩ qubit, this classical state inherits a negative phase:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig12.png" style="width:65%; margin: 2em;" title="A state that triggers the X-gate inherits a negative phase from the |-⟩ qubit" >
+    </div>
+    </div>
+    <br>
+    <p>At this point, our explanation branches into two separate cases, the case of the constant box and the case of the balanced box. Let’s start with the constant box:</p>
+    <h3 style="font-family: 'Karla', sans-serif">Constant Box</h3>
+    <p>Since our box is constant, the X-gate at the bottom of our circuit is either triggered for every classical input, or for none. When we pass our black box the state |s⟩, we are guaranteed to either get all our states back untouched, or all with a negative phase:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig13.png" style="width:70%; margin: 2em;" title="Either all states inherit a negative phase, or no states inherit a negative phase. Since |s⟩ is a superposition of all possible states, this means we get either |s⟩ or -|s⟩ as output." >
+    </div>
+    </div>
+    <br>
+    <p>We see that the probability of measuring the state |s⟩ is exactly 1 for both types of constant box:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig14.png" style="width:65%; margin: 3em;" title="The global negative phase has no effect on measurement" >
+    </div>
+    </div>        
+        <p>This is a good demonstration of <a href="/quantum_computing/the_qubit.html#bloch_sphere">global phase being ignored</a>. The states <span class="nobr">|s⟩|-⟩</span> and <span class="nobr">-|s⟩|-⟩</span> are completely equivalent to us.</p>
+    <li>Apply H-gates to the n input qubits</li>
+    <p>As mentioned before, this step transforms the state |s⟩ into the state |000...0⟩. Since we were left with either |s⟩ or -|s⟩ from the previous step, we will be left to measure either |000...0⟩ or -|000..0⟩, which gives us a 100% chance of measuring each qubit in the state |0⟩.</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig15.png" style="width:65%; margin: 3em;" title="The final state of our register is either |00...0⟩ or -|00...0⟩, so we will always measure all the qubits as being OFF" >
+    </div>
+    </div>   
+    <h3 style="font-family: 'Karla', sans-serif">Balanced Box</h3>
+    <li value="3">Apply the black box</li>
+    <p>Since our box is balanced, the X-gate at the bottom of our circuit is triggered for exactly half the classical inputs. This means we’re going to get back a superposition that looks something like this:</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig16.png" style="width:65%; margin: 2em;" title="Half of the states in the computational basis inherit a negative phase" >
+    </div>
+    </div> 
+    <p>We can see that this new state vector is perpendicular to |s⟩, so the probability that we find our system in the state |s⟩ is exactly 0.</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig17.png" style="width:65%; margin: 3em;" title="The state of our register is perpendicular to |s⟩" >
+    </div>
+    </div> 
+    <li value="4">Apply H-gates to the n input qubits</li>
+    <p>As mentioned before, this operation transforms the state |s⟩ into the state |000...0⟩. Since we were left with a state perpendicular to |s⟩, after this final transformation we’re going to end up with a state perpendicular to |000...0⟩, therefore the probability of measuring all qubits |0⟩ is exactly 0.</p>
+    <div class="row">
+    <div class="mx-auto text-center">
+        <img src="img/fig18.png" style="width:65%; margin: 2em;" title="If the box is balanced, we will never measure the output as all OFF" >
+    </div>
+    </div> 
+    </ol>
+    <br>
+    <h3>Summary</h3>
+    <p>In this section you’ve seen some different notations and ways of thinking used in action, you’ve seen some basic quantum computing principles at work, and you’ve understood an example of an algorithm a quantum computer can perform better than a conventional computer. Almost all of the individual techniques and processes here are reused in some form or another in larger, more exciting algorithms.</p>
+    <p>To consolidate this, I highly recommend working through the maths independently with a pen and paper, and experimenting with simulations in Quirk. 
+    </p>
+    <p><br></p>
+    <h3 style="text-align: center"><a href="../">Back to Proof of Concept Algorithms</a></h3>
+    <p><br></p>
+    </div>
+  </body>
+</html>
